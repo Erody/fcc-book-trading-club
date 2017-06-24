@@ -62,4 +62,11 @@ exports.books = [
 		description: '...',
 		author: 'J. K. Rowling'
 	},
+	{
+		created: Date.now(),
+		image: 'http://harrypotterfanzone.com/wp-content/2009/06/cos-us-jacket-art.jpg',
+		title: "Harry Potter and the Chamber of Secrets",
+		description: '...',
+		author: 'J. K. Rowling'
+	},
 ];

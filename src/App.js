@@ -1,25 +1,26 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
-import { Link, Route } from 'react-router-dom';
+import {NavLink, Route} from 'react-router-dom';
 import BooksPage from './components/BooksPage';
+import BookForm from './components/BookForm';
 import './App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          <Link to="books">Books</Link>
-        </p>
+	render() {
+		return (
+			<div className="ui container">
+				<div className="ui three item menu">
+					<NavLink className="item" activeOnlyWhenExact activeClassName="active" to="/" exact>Home</NavLink>
+					<NavLink className="item" activeOnlyWhenExact activeClassName="active" to="/books" exact>Books</NavLink>
+					<NavLink className="item" activeOnlyWhenExact activeClassName="active" to="/books/add" exact>Add Book</NavLink>
+				</div>
 
-        <Route path="/books" component={BooksPage}/>
-      </div>
-    );
-  }
+
+				<Route path="/books" exact component={BooksPage}/>
+				<Route path="/books/add" exact component={BookForm}/>
+			</div>
+		);
+	}
 }
 
 export default App;
