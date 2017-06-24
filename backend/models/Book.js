@@ -5,15 +5,23 @@ const bookSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now
 	},
-	// author: {
+	author: {
+		type: String,
+		required: 'You must supply an author'
+	},
+	// submittedBy: {
 	// 	type: mongoose.Schema.ObjectId,
 	// 	ref: 'User',
-	// 	required: 'You must supply an author'
+	// 	required: 'Book needs to be submitted by user.'
 	// },
 	image: String,
 	description: {
 		type: String,
 		required: 'You must supply a description'
+	},
+	title: {
+		type: String,
+		required: 'You must supply a title'
 	}
 });
 
