@@ -14,7 +14,7 @@ const bookSchema = new mongoose.Schema({
 	// 	ref: 'User',
 	// 	required: 'Book needs to be submitted by user.'
 	// },
-	image: String,
+	cover: String,
 	description: {
 		type: String,
 		required: 'You must supply a description'

@@ -2,7 +2,9 @@ import dotenv from 'dotenv'
 dotenv.config({ path: './variables.env'});
 
 import express from 'express';
+import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+import { notFound } from './handlers/errorHandlers';
 
 
 const PORT = process.env.PORT || 8080;
@@ -19,8 +21,13 @@ import Book from './models/Book';
 
 const app = express();
 
+app.use(bodyParser.json());
+
 import apiRoutes from './routes/api';
 app.use('/api', apiRoutes);
+
+// error handling
+app.use(notFound);
 
 app.listen(PORT, () => console.log(`Server is listening on ${PORT}`));
 
