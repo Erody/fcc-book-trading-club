@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { saveBook } from '../actions/actions';
 
@@ -10,7 +11,8 @@ class BookForm extends React.Component {
 		description: '',
 		cover: '',
 		errors: {},
-		loading: false
+		loading: false,
+		done: false,
 	};
 
 	handleChange = (e) => {
@@ -40,7 +42,7 @@ class BookForm extends React.Component {
 			const { title, author, description, cover } = this.state;
 			this.setState({ loading: true });
 			this.props.saveBook({title, author, description, cover})
-				.then(() => {})
+				.then(() => { this.setState({ done: true})})
 				.catch(err => {
 					err.response.json()
 						.then(({errors}) => this.setState({errors, loading: false}))
@@ -50,7 +52,7 @@ class BookForm extends React.Component {
 	};
 
 	render() {
-		return (
+		const form = (
 			<form className={classnames('ui','form', {loading: this.state.loading})} onSubmit={this.handleSubmit}>
 				<h1>Add new Book</h1>
 
@@ -112,6 +114,11 @@ class BookForm extends React.Component {
 					<button className="ui primary button">Save</button>
 				</div>
 			</form>
+		);
+		return (
+			<div>
+				{this.state.done ? <Redirect to="/books"/> : form}
+			</div>
 		)
 	}
 }

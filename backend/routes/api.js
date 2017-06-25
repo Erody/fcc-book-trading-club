@@ -8,6 +8,6 @@ const router = express.Router();
 router.get('/books', catchErrors(getBooks));
 
 // POST
-router.post('/books/add', catchErrors(saveBook));
+router.post('/books/add', saveBook);
 
 export default router;

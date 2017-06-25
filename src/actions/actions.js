@@ -1,13 +1,11 @@
 export const SET_BOOKS = 'SET_BOOKS';
 
 function handleResponse(res) {
-	console.log(res);
 	if (res.ok) {
 		return res.json();
 	} else {
 		const error = new Error(res.statusText);
 		error.response = res;
-		console.log(error);
 		throw error;
 	}
 }
