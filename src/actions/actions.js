@@ -1,4 +1,5 @@
 export const SET_BOOKS = 'SET_BOOKS';
+export const ADD_BOOK = 'ADD_BOOK ';
 
 function handleResponse(res) {
 	if (res.ok) {
@@ -14,6 +15,13 @@ export function setBooks(books) {
 	return {
 		type: SET_BOOKS,
 		books
+	}
+}
+
+export function addBook(book) {
+	return {
+		type: ADD_BOOK,
+		book
 	}
 }
 
@@ -36,5 +44,6 @@ export function saveBook(data) {
 			}
 		})
 			.then(res => handleResponse(res))
+			.then(data => dispatch(addBook(data.book)))
 	}
 }

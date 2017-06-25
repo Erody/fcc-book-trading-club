@@ -12,7 +12,7 @@ class BooksPage extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1>LoL</h1>
+				<h1>List of all books</h1>
 
 				<BookList books={this.props.books} />
 			</div>

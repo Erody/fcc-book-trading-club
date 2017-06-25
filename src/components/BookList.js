@@ -1,4 +1,5 @@
 import React from 'react';
+import BookCard from './BookCard';
 
 const BookList = ({books}) => {
 	const emptyMessage = (
@@ -8,9 +9,9 @@ const BookList = ({books}) => {
 	);
 
 	const bookList = (
-		<p>
-			List of books:
-		</p>
+		<div className="ui three cards">
+			{ books.map(book => <BookCard book={book} key={book._id}/>)}
+		</div>
 	);
 
 	return (

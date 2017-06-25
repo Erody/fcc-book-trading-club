@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const Book = mongoose.model('Book');
-import {books} from '../../sampleBooks';
+import {sampleBooks} from '../../sampleBooks';
 
 export async function getBooks(req, res) {
-	//const books = await Book.find();
-	res.json({books: books})
+	// await Book.insertMany(sampleBooks); // load sample data
+	const books = await Book.find();
+	res.json({books})
 }
 
 export function saveBook(req, res) {
