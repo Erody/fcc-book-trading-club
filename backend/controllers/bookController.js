@@ -8,6 +8,11 @@ export async function getBooks(req, res) {
 	res.json({books})
 }
 
+export async function getBook(req, res) {
+	const book = await Book.findOne({_id: req.params.id})
+	res.json({book})
+}
+
 export function saveBook(req, res) {
 	const{ errors, isValid } = validate(req.body);
 	if(isValid) {
@@ -16,7 +21,6 @@ export function saveBook(req, res) {
 		newBook.save()
 			.then(data => res.json({book: data}))
 			.catch(err => res.status(500).json({errors: {global: 'Oops, something went wrong on our end.'}}));
-		res.json({success: true});
 	} else {
 		res.status(400).json({errors})
 	}

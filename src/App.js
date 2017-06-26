@@ -10,14 +10,15 @@ class App extends Component {
 		return (
 			<div className="ui container">
 				<div className="ui three item menu">
-					<NavLink className="item" activeOnlyWhenExact activeClassName="active" to="/" exact>Home</NavLink>
-					<NavLink className="item" activeOnlyWhenExact activeClassName="active" to="/books" exact>Books</NavLink>
-					<NavLink className="item" activeOnlyWhenExact activeClassName="active" to="/books/add" exact>Add Book</NavLink>
+					<NavLink className="item" activeClassName="active" to="/" exact>Home</NavLink>
+					<NavLink className="item" activeClassName="active" to="/books" exact>Books</NavLink>
+					<NavLink className="item" activeClassName="active" to="/books/add" exact>Add Book</NavLink>
 				</div>
 
 
 				<Route path="/books" exact component={BooksPage}/>
 				<Route path="/books/add" exact component={BookForm}/>
+				<Route path="/book/:_id" component={BookForm}/>
 			</div>
 		);
 	}

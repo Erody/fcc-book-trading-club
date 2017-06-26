@@ -2,17 +2,34 @@ import React from 'react';
 import classnames from 'classnames';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { saveBook } from '../actions/actions';
+import { saveBook, fetchBook } from '../actions/actions';
 
 class BookForm extends React.Component {
 	state = {
-		title: '',
-		author: '',
-		description: '',
-		cover: '',
+		_id: this.props.book ? this.props.book._id : null,
+		title: this.props.book ? this.props.book.title : '',
+		author: this.props.book ? this.props.book.author : '',
+		description: this.props.book ? this.props.book.description : '',
+		cover: this.props.book ? this.props.book.cover : '',
 		errors: {},
 		loading: false,
 		done: false,
+	};
+
+	componentWillReceiveProps = (nextProps) => {
+		const { title, author, description, cover } = nextProps.book;
+		this.setState({
+			title,
+			author,
+			description,
+			cover
+		})
+	};
+
+	componentDidMount = () => {
+		if(this.props.match.params._id) {
+			this.props.fetchBook(this.props.match.params._id)
+		}
 	};
 
 	handleChange = (e) => {
@@ -123,4 +140,16 @@ class BookForm extends React.Component {
 	}
 }
 
-export default connect(null, { saveBook })(BookForm);
+function mapStateToProps(state, props) {
+	if(props.match.params._id) {
+		return {
+			book: state.books.find(item => item._id === props.match.params._id)
+		}
+	} else {
+		return {
+			book: null
+		}
+	}
+}
+
+export default connect(mapStateToProps, { saveBook, fetchBook })(BookForm);

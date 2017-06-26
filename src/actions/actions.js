@@ -1,5 +1,6 @@
 export const SET_BOOKS = 'SET_BOOKS';
-export const ADD_BOOK = 'ADD_BOOK ';
+export const ADD_BOOK = 'ADD_BOOK';
+export const BOOK_FETCHED = 'BOOK_FETCHED';
 
 function handleResponse(res) {
 	if (res.ok) {
@@ -25,12 +26,28 @@ export function addBook(book) {
 	}
 }
 
+export function bookFetched(book) {
+	return {
+		type: BOOK_FETCHED,
+		book
+	}
+}
+
 export function fetchBooks() {
 	return dispatch => {
 		fetch('/api/books')
 			.then(res => res.json())
 			.then(data => dispatch(setBooks(data.books)))
 			.catch(err => console.error(err))
+	}
+}
+
+export function fetchBook(id) {
+	return dispatch => {
+		fetch(`/api/book/${id}`)
+			.then(res => res.json())
+			.then(data => dispatch(bookFetched(data.book)))
+
 	}
 }
 
