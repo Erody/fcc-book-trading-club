@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { saveBook, fetchBook } from '../actions/actions';
+import { saveBook, fetchBook, updateBook } from '../actions/actions';
 
 class BookForm extends React.Component {
 	state = {
@@ -56,14 +56,25 @@ class BookForm extends React.Component {
 
 		const isValid = Object.keys(errors).length === 0;
 		if(isValid) {
-			const { title, author, description, cover } = this.state;
+			const { _id, title, author, description, cover } = this.state;
 			this.setState({ loading: true });
-			this.props.saveBook({title, author, description, cover})
-				.then(() => { this.setState({ done: true})})
-				.catch(err => {
-					err.response.json()
-						.then(({errors}) => this.setState({errors, loading: false}))
-				})
+
+			if(_id) {
+				this.props.updateBook({_id, title, author, description, cover})
+					.then(() => { this.setState({ done: true})})
+					.catch(err => {
+						err.response.json()
+							.then(({errors}) => this.setState({errors, loading: false}))
+					})
+			} else {
+				this.props.saveBook({title, author, description, cover})
+					.then(() => { this.setState({ done: true})})
+					.catch(err => {
+						err.response.json()
+							.then(({errors}) => this.setState({errors, loading: false}))
+					})
+			}
+
 
 		}
 	};
@@ -152,4 +163,4 @@ function mapStateToProps(state, props) {
 	}
 }
 
-export default connect(mapStateToProps, { saveBook, fetchBook })(BookForm);
+export default connect(mapStateToProps, { saveBook, fetchBook, updateBook })(BookForm);

@@ -13,6 +13,23 @@ export async function getBook(req, res) {
 	res.json({book})
 }
 
+export async function updateBook(req, res) {
+	const { errors, isValid} = validate(req.body);
+	if(isValid) {
+		const { title, author, cover, description} = req.body;
+
+		const book = await Book.findOneAndUpdate(
+			{_id: req.body._id},
+			{$set: { title, author, cover, description}},
+			{new: true});
+
+		res.json({book})
+	} else {
+		res.status(400).json({errors});
+	}
+
+}
+
 export function saveBook(req, res) {
 	const{ errors, isValid } = validate(req.body);
 	if(isValid) {

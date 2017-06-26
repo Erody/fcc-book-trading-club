@@ -1,7 +1,12 @@
-import { SET_BOOKS, ADD_BOOK, BOOK_FETCHED  } from '../actions/actions';
+import { SET_BOOKS, ADD_BOOK, BOOK_FETCHED, BOOK_UPDATED  } from '../actions/actions';
 
 export default function books(state = [], action = {}) {
 	switch(action.type) {
+		case BOOK_UPDATED:
+			return state.map(item => {
+				if (item._id === action.book._id) return action.book;
+				return item;
+			});
 		case BOOK_FETCHED:
 			const index = state.findIndex(item => item._id === action.book._id);
 			if(index > -1 ) {

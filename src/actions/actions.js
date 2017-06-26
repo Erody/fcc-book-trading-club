@@ -1,6 +1,7 @@
 export const SET_BOOKS = 'SET_BOOKS';
 export const ADD_BOOK = 'ADD_BOOK';
 export const BOOK_FETCHED = 'BOOK_FETCHED';
+export const BOOK_UPDATED = 'BOOK_UPDATED';
 
 function handleResponse(res) {
 	if (res.ok) {
@@ -29,6 +30,13 @@ export function addBook(book) {
 export function bookFetched(book) {
 	return {
 		type: BOOK_FETCHED,
+		book
+	}
+}
+
+export function bookUpdated(book) {
+	return {
+		type: BOOK_UPDATED,
 		book
 	}
 }
@@ -62,5 +70,20 @@ export function saveBook(data) {
 		})
 			.then(res => handleResponse(res))
 			.then(data => dispatch(addBook(data.book)))
+	}
+}
+
+export function updateBook(data) {
+	return dispatch => {
+		return fetch(`/api/book/${data._id}`, {
+			method: 'put',
+			body: JSON.stringify(data),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+			.then(res => handleResponse(res))
+			.then(data => dispatch(bookUpdated(data.book)))
+
 	}
 }
