@@ -9,7 +9,7 @@ const BookList = ({books, deleteBook}) => {
 	);
 
 	const bookList = (
-		<div className="ui three cards">
+		<div className="ui five cards">
 			{ books.map(book => <BookCard deleteBook={deleteBook} book={book} key={book._id}/>)}
 		</div>
 	);

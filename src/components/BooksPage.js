@@ -12,7 +12,7 @@ class BooksPage extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1>List of all books</h1>
+				<h1>List of all available books</h1>
 
 				<BookList deleteBook={this.props.deleteBook} books={this.props.books} />
 			</div>
