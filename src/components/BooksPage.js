@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchBooks } from '../actions/actions'
+import { fetchBooks, deleteBook } from '../actions/actions'
 import BookList from './BookList';
 
 class BooksPage extends React.Component {
@@ -14,7 +14,7 @@ class BooksPage extends React.Component {
 			<div>
 				<h1>List of all books</h1>
 
-				<BookList books={this.props.books} />
+				<BookList deleteBook={this.props.deleteBook} books={this.props.books} />
 			</div>
 		)
 	}
@@ -22,7 +22,8 @@ class BooksPage extends React.Component {
 
 BooksPage.propTypes = {
 	books: React.PropTypes.array.isRequired,
-	fetchBooks: React.PropTypes.func.isRequired
+	fetchBooks: React.PropTypes.func.isRequired,
+	deleteBook: React.PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -31,4 +32,4 @@ function mapStateToProps(state) {
 	}
 }
 
-export default connect(mapStateToProps, { fetchBooks })(BooksPage);
+export default connect(mapStateToProps, { fetchBooks, deleteBook })(BooksPage);

@@ -9,7 +9,7 @@ export async function getBooks(req, res) {
 }
 
 export async function getBook(req, res) {
-	const book = await Book.findOne({_id: req.params.id})
+	const book = await Book.findOne({_id: req.params.id});
 	res.json({book})
 }
 
@@ -27,6 +27,12 @@ export async function updateBook(req, res) {
 	} else {
 		res.status(400).json({errors});
 	}
+}
+
+export function deleteBook(req, res) {
+	Book.findOneAndRemove({_id: req.params.id})
+		.then(() => res.json({}))
+		.catch(err => res.status(500).json({errors: {global: 'Oops, something went wrong on our end.'}}));
 
 }
 

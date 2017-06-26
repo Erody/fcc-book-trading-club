@@ -1,7 +1,11 @@
-import { SET_BOOKS, ADD_BOOK, BOOK_FETCHED, BOOK_UPDATED  } from '../actions/actions';
+import { SET_BOOKS, ADD_BOOK, BOOK_FETCHED, BOOK_UPDATED, BOOK_DELETED  } from '../actions/actions';
 
 export default function books(state = [], action = {}) {
 	switch(action.type) {
+		case BOOK_DELETED:
+			return state.filter(item => {
+				return item._id !== action.id
+			});
 		case BOOK_UPDATED:
 			return state.map(item => {
 				if (item._id === action.book._id) return action.book;
