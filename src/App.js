@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import {NavLink, Route} from 'react-router-dom';
 import BooksPage from './components/BooksPage';
-import BookForm from './components/BookForm';
+import BookFormPage from './components/BookFormPage';
 import './App.css';
 
 class App extends Component {
@@ -17,8 +17,8 @@ class App extends Component {
 
 
 				<Route path="/books" exact component={BooksPage}/>
-				<Route path="/books/add" exact component={BookForm}/>
-				<Route path="/book/:_id" component={BookForm}/>
+				<Route path="/books/add" exact component={BookFormPage}/>
+				<Route path="/book/:_id" component={BookFormPage}/>
 			</div>
 		);
 	}

@@ -1,8 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { saveBook, fetchBook, updateBook } from '../actions/actions';
+
 
 class BookForm extends React.Component {
 	state = {
@@ -13,7 +11,6 @@ class BookForm extends React.Component {
 		cover: this.props.book ? this.props.book.cover : '',
 		errors: {},
 		loading: false,
-		done: false,
 	};
 
 	componentWillReceiveProps = (nextProps) => {
@@ -26,11 +23,7 @@ class BookForm extends React.Component {
 		})
 	};
 
-	componentDidMount = () => {
-		if(this.props.match.params._id) {
-			this.props.fetchBook(this.props.match.params._id)
-		}
-	};
+
 
 	handleChange = (e) => {
 		const errors = {...this.state.errors};
@@ -58,24 +51,11 @@ class BookForm extends React.Component {
 		if(isValid) {
 			const { _id, title, author, description, cover } = this.state;
 			this.setState({ loading: true });
-
-			if(_id) {
-				this.props.updateBook({_id, title, author, description, cover})
-					.then(() => { this.setState({ done: true})})
-					.catch(err => {
-						err.response.json()
-							.then(({errors}) => this.setState({errors, loading: false}))
-					})
-			} else {
-				this.props.saveBook({title, author, description, cover})
-					.then(() => { this.setState({ done: true})})
-					.catch(err => {
-						err.response.json()
-							.then(({errors}) => this.setState({errors, loading: false}))
-					})
-			}
-
-
+			this.props.saveBook({ _id, title, author, description, cover})
+				.catch(err => {
+					err.response.json()
+						.then(({errors}) => this.setState({errors, loading: false}))
+				})
 		}
 	};
 
@@ -145,22 +125,10 @@ class BookForm extends React.Component {
 		);
 		return (
 			<div>
-				{this.state.done ? <Redirect to="/books"/> : form}
+				{form}
 			</div>
 		)
 	}
 }
 
-function mapStateToProps(state, props) {
-	if(props.match.params._id) {
-		return {
-			book: state.books.find(item => item._id === props.match.params._id)
-		}
-	} else {
-		return {
-			book: null
-		}
-	}
-}
-
-export default connect(mapStateToProps, { saveBook, fetchBook, updateBook })(BookForm);
+export default BookForm;
