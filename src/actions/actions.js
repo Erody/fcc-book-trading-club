@@ -1,18 +1,14 @@
+import { handleResponse } from './actionHelpers'
+
 export const SET_BOOKS = 'SET_BOOKS';
 export const ADD_BOOK = 'ADD_BOOK';
 export const BOOK_FETCHED = 'BOOK_FETCHED';
 export const BOOK_UPDATED = 'BOOK_UPDATED';
 export const BOOK_DELETED = 'BOOK_DELETED';
 
-function handleResponse(res) {
-	if (res.ok) {
-		return res.json();
-	} else {
-		const error = new Error(res.statusText);
-		error.response = res;
-		throw error;
-	}
-}
+
+
+
 
 export function setBooks(books) {
 	return {
@@ -48,6 +44,8 @@ export function bookDeleted(id) {
 		id
 	}
 }
+
+
 
 export function fetchBooks() {
 	return dispatch => {
@@ -108,3 +106,4 @@ export function deleteBook(id) {
 			.then(data => dispatch(bookDeleted(id)))
 	}
 }
+
