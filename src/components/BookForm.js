@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import TextFieldGroup from './TextFieldGroup';
 
 
 class BookForm extends React.Component {
@@ -48,6 +49,8 @@ class BookForm extends React.Component {
 		this.setState({ errors });
 
 		const isValid = Object.keys(errors).length === 0;
+
+		this.setState({errors});
 		if(isValid) {
 			const { _id, title, author, description, cover } = this.state;
 			this.setState({ loading: true });
@@ -66,53 +69,41 @@ class BookForm extends React.Component {
 
 				{!!this.state.errors.global && <div className="ui negative message"><p>{this.state.errors.global}</p></div>	}
 
-				<div className={classnames('field', {error: !!this.state.errors.title})} >
-					<label htmlFor="title">Title</label>
-					<input
-						name="title"
-						value={this.state.title}
-						onChange={this.handleChange}
-						type="text"
-						id="title"
-					/>
-					<span>{this.state.errors.title}</span>
-				</div>
+				<TextFieldGroup
+					name="title"
+					label="Title"
+					value={this.state.title}
+					onChange={this.handleChange}
+					id="title"
+					error={this.state.errors.title}
+				/>
 
-				<div className={classnames('field', {error: !!this.state.errors.author})}>
-					<label htmlFor="author">Author</label>
-					<input
-						name="author"
-						value={this.state.author}
-						onChange={this.handleChange}
-						type="text"
-						id="author"
-					/>
-					<span>{this.state.errors.author}</span>
-				</div>
+				<TextFieldGroup
+					name="author"
+					label="Author"
+					value={this.state.author}
+					onChange={this.handleChange}
+					id="author"
+					error={this.state.errors.author}
+				/>
 
-				<div className={classnames('field', {error: !!this.state.errors.description})}>
-					<label htmlFor="description">Short summary</label>
-					<input
-						name="description"
-						value={this.state.description}
-						onChange={this.handleChange}
-						type="text"
-						id="description"
-					/>
-					<span>{this.state.errors.description}</span>
-				</div>
+				<TextFieldGroup
+					name="description"
+					label="Short summary"
+					value={this.state.description}
+					onChange={this.handleChange}
+					id="description"
+					error={this.state.errors.description}
+				/>
 
-				<div className={classnames('field', {error: !!this.state.errors.cover})}>
-					<label htmlFor="cover">Cover URL</label>
-					<input
-						name="cover"
-						value={this.state.cover}
-						onChange={this.handleChange}
-						type="text"
-						id="cover"
-					/>
-					<span>{this.state.errors.cover}</span>
-				</div>
+				<TextFieldGroup
+					name="cover"
+					label="Cover"
+					value={this.state.cover}
+					onChange={this.handleChange}
+					id="cover"
+					error={this.state.errors.cover}
+				/>
 
 				<div className="field">
 					{this.state.cover && <img src={this.state.cover} alt="cover" className="ui small bordered image"/>}

@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import TextFieldGroup from './TextFieldGroup';
 
 class SignupForm extends React.Component {
 	state = {
@@ -52,53 +53,44 @@ class SignupForm extends React.Component {
 
 					{!!this.state.errors.global && <div className="ui negative message"><p>{this.state.errors.global}</p></div>	}
 
-					<div className={classnames('field', {error: !!this.state.errors.username})}>
-						<label htmlFor="username" title="This will be your display name on this site.">Username</label>
-						<input
-							type="text"
-							id="username"
-							name="username"
-							value={this.state.username}
-							onChange={this.handleChange}
-						/>
-						<span>{this.state.errors.username}</span>
-					</div>
+					<TextFieldGroup
+						name="username"
+						label="Username"
+						value={this.state.username}
+						onChange={this.handleChange}
+						id="username"
+						error={this.state.errors.username}
+					/>
 
-					<div className={classnames('field', {error: !!this.state.errors.email})}>
-						<label htmlFor="email">Email</label>
-						<input
-							type="email"
-							id="email"
-							name="email"
-							value={this.state.email}
-							onChange={this.handleChange}
-						/>
-						<span>{this.state.errors.email}</span>
-					</div>
+					<TextFieldGroup
+						name="email"
+						label="Email Address"
+						value={this.state.email}
+						onChange={this.handleChange}
+						id="email"
+						error={this.state.errors.email}
+						type="email"
+					/>
 
-					<div className={classnames('field', {error: !!this.state.errors.password})}>
-						<label htmlFor="password">Password</label>
-						<input
-							type="password"
-							id="password"
-							name="password"
-							value={this.state.password}
-							onChange={this.handleChange}
-						/>
-						<span>{this.state.errors.password}</span>
-					</div>
+					<TextFieldGroup
+						name="password"
+						label="Password"
+						value={this.state.password}
+						onChange={this.handleChange}
+						id="password"
+						error={this.state.errors.password}
+						type="password"
+					/>
 
-					<div className={classnames('field', {error: !!this.state.errors.passwordVerification})}>
-						<label htmlFor="passwordVerification">Password Verification</label>
-						<input
-							type="password"
-							id="passwordVerification"
-							name="passwordVerification"
-							value={this.state.passwordVerification}
-							onChange={this.handleChange}
-						/>
-						<span>{this.state.errors.passwordVerification}</span>
-					</div>
+					<TextFieldGroup
+						name="passwordVerification"
+						label="Password Verification"
+						value={this.state.passwordVerification}
+						onChange={this.handleChange}
+						id="passwordVerification"
+						error={this.state.errors.passwordVerification}
+						type="password"
+					/>
 
 					<div className="field">
 						<button className="ui primary button">Save</button>
