@@ -4,6 +4,11 @@ import { connect } from 'react-redux';
 import { signup } from '../actions/auth';
 
 class SignupPage extends React.Component {
+
+	state = {
+		redirect: false,
+	};
+
 	render() {
 		return (
 			<div>

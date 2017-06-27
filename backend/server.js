@@ -24,7 +24,9 @@ const app = express();
 app.use(bodyParser.json());
 
 import apiRoutes from './routes/api';
+import apiAuthRoutes from './routes/apiAuth';
 app.use('/api', apiRoutes);
+app.use('/api/auth', apiAuthRoutes);
 
 // error handling
 app.use(notFound);

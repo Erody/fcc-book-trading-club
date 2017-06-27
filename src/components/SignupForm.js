@@ -48,7 +48,7 @@ class SignupForm extends React.Component {
 	render() {
 		return (
 			<div>
-				<form className="ui form" onSubmit={this.handleSubmit}>
+				<form className={classnames('ui','form', {loading: this.state.loading})} onSubmit={this.handleSubmit}>
 
 					{!!this.state.errors.global && <div className="ui negative message"><p>{this.state.errors.global}</p></div>	}
 
