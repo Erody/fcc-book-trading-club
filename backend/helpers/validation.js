@@ -1,7 +1,7 @@
 import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
-export function validateInput(data) {
+export function credentialValidation(data) {
 	const { username, email, password, passwordVerification } = data;
 	const errors = {};
 
