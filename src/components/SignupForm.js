@@ -38,9 +38,16 @@ class SignupForm extends React.Component {
 			const { username, email, password, passwordVerification } = this.state;
 			this.setState({ loading: true });
 			this.props.signup({ username, email, password, passwordVerification})
+				.then(() => {
+					this.context.router.history.push('/');
+				})
 				.catch(err => {
-					err.response.json()
-						.then(({errors}) => this.setState({errors, loading: false}))
+					if(err.response) {
+						err.response.json()
+							.then(({errors}) => this.setState({errors, loading: false}))
+					} else {
+						console.log(err);
+					}
 				})
 		}
 	};
@@ -103,6 +110,10 @@ class SignupForm extends React.Component {
 
 SignupForm.propTypes = {
 	signup: React.PropTypes.func.isRequired,
+};
+
+SignupForm.contextTypes = {
+	router: React.PropTypes.object.isRequired
 };
 
 export default SignupForm;
