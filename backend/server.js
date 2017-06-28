@@ -18,6 +18,7 @@ mongoose.connection.on('error', (err) => {
 
 // import all of our models
 import Book from './models/Book';
+import User from './models/User';
 
 const app = express();
 
