@@ -1,6 +1,6 @@
 import { handleResponse } from './actionHelpers'
 
-export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+import {SIGNUP_SUCCESS} from './typeExports';
 
 export function signupSuccessful(token) {
 	return {

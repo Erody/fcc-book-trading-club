@@ -2,6 +2,7 @@ import React from 'react';
 import SignupForm from './SignupForm'
 import { connect } from 'react-redux';
 import { signup } from '../actions/auth';
+import { addFlashMessage } from '../actions/flashMessages';
 
 class SignupPage extends React.Component {
 
@@ -13,7 +14,7 @@ class SignupPage extends React.Component {
 		return (
 			<div>
 				<h1>Sign Up</h1>
-				<SignupForm signup={this.props.signup}/>
+				<SignupForm addFlashMessage={this.props.addFlashMessage} signup={this.props.signup}/>
 			</div>
 		)
 	}
@@ -21,6 +22,7 @@ class SignupPage extends React.Component {
 
 SignupPage.propTypes = {
 	signup: React.PropTypes.func.isRequired,
+	addFlashMessage: React.PropTypes.func.isRequired
 };
 
-export default connect(null, { signup })(SignupPage);
+export default connect(null, { signup, addFlashMessage })(SignupPage);

@@ -1,4 +1,4 @@
-import { SET_BOOKS, ADD_BOOK, BOOK_FETCHED, BOOK_UPDATED, BOOK_DELETED  } from '../actions/actions';
+import { SET_BOOKS, ADD_BOOK, BOOK_FETCHED, BOOK_UPDATED, BOOK_DELETED  } from '../actions/typeExports';
 
 export default function books(state = [], action = {}) {
 	switch(action.type) {

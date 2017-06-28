@@ -1,13 +1,10 @@
 import { handleResponse } from './actionHelpers'
 
-export const SET_BOOKS = 'SET_BOOKS';
-export const ADD_BOOK = 'ADD_BOOK';
-export const BOOK_FETCHED = 'BOOK_FETCHED';
-export const BOOK_UPDATED = 'BOOK_UPDATED';
-export const BOOK_DELETED = 'BOOK_DELETED';
-
-
-
+import {SET_BOOKS} from './typeExports';
+import {ADD_BOOK} from './typeExports';
+import {BOOK_FETCHED} from './typeExports';
+import {BOOK_UPDATED} from './typeExports';
+import {BOOK_DELETED} from './typeExports';
 
 
 export function setBooks(books) {

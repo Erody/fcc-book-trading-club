@@ -1,9 +1,9 @@
-import { SIGNUP_SUCCESS } from '../actions/auth';
+import { SIGNUP_SUCCESS } from '../actions/typeExports';
 
 export default function user(state = [], action = {}) {
 	switch(action.type) {
 		case SIGNUP_SUCCESS:
-			return action.user;
+			return state;
 		default: return state;
 	}
 }
