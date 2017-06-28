@@ -5,6 +5,7 @@ import BooksPage from './components/BooksPage';
 import BookFormPage from './components/BookFormPage';
 import SignupPage from './components/SignupPage';
 import LoginPage from './components/LoginPage';
+import FlasMessageList from './components/FlashMessageList';
 import './App.css';
 
 class App extends Component {
@@ -21,6 +22,7 @@ class App extends Component {
 					</div>
 				</div>
 
+				<FlasMessageList/>
 
 				<Route path="/books" exact component={BooksPage}/>
 				<Route path="/books/add" exact component={BookFormPage}/>
