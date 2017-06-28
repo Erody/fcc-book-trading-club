@@ -44,8 +44,10 @@ export function validateInput(data, otherValidation) {
 			{name: data.username}
 		]})
 		.then(user => {
-			if(user.name === data.username) errors.username = 'A user with that username already exists.';
-			if(user.email === data.email) errors.email = 'That email address is already being used.';
+			if(user) {
+				if(user.name === data.username) errors.username = 'A user with that username already exists.';
+				if(user.email === data.email) errors.email = 'That email address is already being used.';
+			}
 		})
 		.then(() => {
 			return {
