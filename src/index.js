@@ -8,12 +8,21 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import rootReducer from './rootReducer';
+import setAuthToken from './utils/setAuthToken';
+import jwtDecode from 'jwt-decode';
+import {setCurrentUser} from './actions/auth';
 import './index.css';
 
 const store = createStore(
 	rootReducer,
 	composeWithDevTools(applyMiddleware(thunk))
 );
+
+
+if(localStorage.jwt) {
+	setAuthToken(localStorage.jwt);
+	store.dispatch(setCurrentUser(jwtDecode(localStorage.jwt)))
+}
 
 ReactDOM.render(
 	<Router>

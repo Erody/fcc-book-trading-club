@@ -7,3 +7,9 @@ export function handleResponse(res) {
 		throw error;
 	}
 }
+
+export function handleError(err) {
+	console.log(err);
+	console.log(err.response);
+	throw err;
+}

@@ -1,4 +1,5 @@
 import { handleResponse } from './actionHelpers'
+import axios from 'axios';
 
 import {SET_BOOKS} from './typeExports';
 import {ADD_BOOK} from './typeExports';
@@ -46,61 +47,36 @@ export function bookDeleted(id) {
 
 export function fetchBooks() {
 	return dispatch => {
-		fetch('/api/books')
-			.then(res => res.json())
-			.then(data => dispatch(setBooks(data.books)))
-			.catch(err => console.error(err))
+		return axios.get('/api/books')
+			.then(({data}) => dispatch(setBooks(data.books)))
 	}
 }
 
 export function fetchBook(id) {
 	return dispatch => {
-		fetch(`/api/book/${id}`)
-			.then(res => res.json())
-			.then(data => dispatch(bookFetched(data.book)))
-
+		return axios.get(`/api/book/${id}`)
+			.then(({data}) => dispatch(bookFetched(data.book)))
 	}
 }
 
 export function saveBook(data) {
 	return dispatch => {
-		return fetch('/api/books/add', {
-			method: 'post',
-			body: JSON.stringify(data),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-			.then(res => handleResponse(res))
-			.then(data => dispatch(addBook(data.book)))
+		return axios.post('/api/books/add', data)
+			.then(({data}) => dispatch(addBook(data.book)));
 	}
 }
 
 export function updateBook(data) {
 	return dispatch => {
-		return fetch(`/api/book/${data._id}`, {
-			method: 'put',
-			body: JSON.stringify(data),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-			.then(res => handleResponse(res))
-			.then(data => dispatch(bookUpdated(data.book)))
-
+		return axios.put(`/api/book/${data._id}`, data)
+			.then(({data}) => dispatch(bookUpdated(data.book)))
 	}
 }
 
 export function deleteBook(id) {
 	return dispatch => {
-		return fetch(`/api/book/${id}`, {
-			method: 'delete',
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-			.then(res => handleResponse(res))
-			.then(data => dispatch(bookDeleted(id)))
+		return axios.delete(`/api/book/${id}`, id)
+			.then(({data}) => dispatch(bookDeleted(id)))
 	}
 }
 

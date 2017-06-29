@@ -46,12 +46,11 @@ class SignupForm extends React.Component {
 					this.context.router.history.push('/');
 				})
 				.catch(err => {
-					if(err.response) {
-						err.response.json()
-							.then(({errors}) => this.setState({errors, loading: false}))
-					} else {
-						console.log(err);
-					}
+					this.setState({loading:false});
+					this.props.addFlashMessage({
+						type: 'error',
+						text: 'Sorry, something went wrong on our end. Please try again later.'
+					})
 				})
 		}
 	};

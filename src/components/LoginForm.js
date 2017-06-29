@@ -8,7 +8,7 @@ class LoginForm extends React.Component {
 		identifier: '',
 		password: '',
 		errors: {},
-		isLoading: false
+		loading: false
 	};
 
 	handleChange = (e) => {
@@ -47,23 +47,22 @@ class LoginForm extends React.Component {
 					this.context.router.history.push('/');
 				})
 				.catch(err => {
-					if(err.response) {
-						err.response.json()
-							.then(({errors}) => this.setState({errors, loading: false}))
-					} else {
-						console.log(err);
-					}
+					this.setState({loading:false});
+					this.props.addFlashMessage({
+						type: 'error',
+						text: 'Sorry, something went wrong on our end. Please try again later.'
+					})
 				})
 		}
 	};
 
 	render() {
-		const { identifier, password, errors, isLoading } = this.state;
+		const { identifier, password, errors, loading } = this.state;
 		return (
 			<div>
-				<form className={classnames('ui','form', {loading: this.state.loading})} onSubmit={this.handleSubmit}>
+				<form className={classnames('ui','form', {loading})} onSubmit={this.handleSubmit}>
 
-					{!!this.state.errors.global && <div className="ui negative message"><p>{this.state.errors.global}</p></div>	}
+					{!!errors.global && <div className="ui negative message"><p>{errors.global}</p></div>	}
 
 					<TextFieldGroup
 						name="identifier"
