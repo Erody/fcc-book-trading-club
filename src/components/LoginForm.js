@@ -48,10 +48,7 @@ class LoginForm extends React.Component {
 				})
 				.catch(err => {
 					this.setState({loading:false});
-					this.props.addFlashMessage({
-						type: 'error',
-						text: 'Sorry, something went wrong on our end. Please try again later.'
-					})
+					this.setState({errors: err.response.data.errors});
 				})
 		}
 	};
