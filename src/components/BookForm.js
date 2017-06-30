@@ -15,13 +15,15 @@ class BookForm extends React.Component {
 	};
 
 	componentWillReceiveProps = (nextProps) => {
-		const { title, author, description, cover } = nextProps.book;
-		this.setState({
-			title,
-			author,
-			description,
-			cover
-		})
+		if(nextProps.book) {
+			const { title, author, description, cover } = nextProps.book;
+			this.setState({
+				title,
+				author,
+				description,
+				cover
+			})
+		}
 	};
 
 
