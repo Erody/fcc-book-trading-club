@@ -55,9 +55,18 @@ class BookForm extends React.Component {
 			const { _id, title, author, description, cover } = this.state;
 			this.setState({ loading: true });
 			this.props.saveBook({ _id, title, author, description, cover})
+				.then(() => {
+					this.props.addFlashMessage({
+						type: 'success',
+						text: 'You successfully added a new book to your collection.'
+					})
+				})
 				.catch(err => {
-					err.response.json()
-						.then(({errors}) => this.setState({errors, loading: false}))
+					this.setState({loading:false});
+					this.props.addFlashMessage({
+						type: 'error',
+						text: err.response.data.error
+					})
 				})
 		}
 	};
@@ -121,5 +130,9 @@ class BookForm extends React.Component {
 		)
 	}
 }
+
+BookForm.propTypes = {
+	addFlashMessage: React.PropTypes.func.isRequired
+};
 
 export default BookForm;

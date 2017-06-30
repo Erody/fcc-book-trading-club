@@ -21,7 +21,13 @@ const store = createStore(
 
 if(localStorage.jwt) {
 	setAuthToken(localStorage.jwt);
-	store.dispatch(setCurrentUser(jwtDecode(localStorage.jwt)))
+	// If user manually changes token the app crashes without this error handler
+	try {
+		const decoded =jwtDecode(localStorage.jwt);
+		store.dispatch(setCurrentUser(decoded))
+	} catch(err) {
+		console.log(err);
+	}
 }
 
 ReactDOM.render(

@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { saveBook, fetchBook, updateBook } from '../actions/actions';
+import { addFlashMessage } from '../actions/flashMessages';
 import BookForm from './BookForm'
 
 class BookFormPage extends React.Component {
@@ -33,6 +34,7 @@ class BookFormPage extends React.Component {
 					this.state.redirect ?
 					<Redirect to="/books"/> :
 					<BookForm
+						addFlashMessage={this.props.addFlashMessage}
 						book={this.props.book}
 						saveBook={this.saveBook}
 					/>
@@ -41,6 +43,10 @@ class BookFormPage extends React.Component {
 		)
 	}
 }
+
+BookFormPage.propTypes = {
+	addFlashMessage: React.PropTypes.func.isRequired
+};
 
 
 function mapStateToProps(state, props) {
@@ -55,4 +61,4 @@ function mapStateToProps(state, props) {
 	}
 }
 
-export default connect(mapStateToProps, { saveBook, fetchBook, updateBook })(BookFormPage);
+export default connect(mapStateToProps, { saveBook, fetchBook, updateBook, addFlashMessage })(BookFormPage);
