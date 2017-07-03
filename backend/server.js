@@ -4,6 +4,8 @@ dotenv.config({ path: './variables.env'});
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+import SocketIO from 'socket.io';
+import http from 'http';
 import { notFound } from './handlers/errorHandlers';
 
 
@@ -21,6 +23,8 @@ import Book from './models/Book';
 import User from './models/User';
 
 const app = express();
+const server = http.Server(app);
+const io = SocketIO(server);
 
 app.use(bodyParser.json());
 
@@ -32,5 +36,16 @@ app.use('/api/auth', apiAuthRoutes);
 // error handling
 app.use(notFound);
 
-app.listen(PORT, () => console.log(`Server is listening on ${PORT}`));
+// app.listen(PORT, () => console.log(`Server is listening on ${PORT}`));
+
+server.listen(PORT, () => {
+	console.log(`Server is listening on ${PORT}`);
+});
+
+io.on('connection', (socket) => {
+	console.log('A user connected');
+	socket.on('disconnect', () => {
+		console.log('A user disconnected');
+	})
+});
 

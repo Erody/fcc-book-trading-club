@@ -4,6 +4,7 @@ import BooksPage from './components/BooksPage';
 import BookFormPage from './components/BookFormPage';
 import SignupPage from './components/SignupPage';
 import LoginPage from './components/LoginPage';
+import BookTradePage from './components/BookTradePage';
 import FlashMessageList from './components/FlashMessageList';
 import Navbar from './components/Navbar';
 import requireAuth from './utils/requireAuth';
@@ -23,6 +24,7 @@ class App extends Component {
 				<Route path="/book/:_id" component={requireAuth(BookFormPage)}/>
 				<Route path="/signup" component={SignupPage}/>
 				<Route path="/login" component={LoginPage}/>
+				<Route path="/trade" component={BookTradePage}/>
 			</div>
 		);
 	}
