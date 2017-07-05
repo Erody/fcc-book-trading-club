@@ -1,11 +1,6 @@
-import { handleResponse } from './actionHelpers'
 import axios from 'axios';
 
-import {SET_BOOKS} from './typeExports';
-import {ADD_BOOK} from './typeExports';
-import {BOOK_FETCHED} from './typeExports';
-import {BOOK_UPDATED} from './typeExports';
-import {BOOK_DELETED} from './typeExports';
+import {SET_BOOKS, USER_DATA, BOOK_DELETED, BOOK_UPDATED, BOOK_FETCHED, ADD_BOOK} from './typeExports';
 
 
 export function setBooks(books) {
@@ -43,6 +38,13 @@ export function bookDeleted(id) {
 	}
 }
 
+export function userData(user) {
+	return {
+		type: USER_DATA,
+		user
+	}
+}
+
 
 
 export function fetchBooks() {
@@ -77,6 +79,13 @@ export function deleteBook(id) {
 	return dispatch => {
 		return axios.delete(`/api/book/${id}`, id)
 			.then(({data}) => dispatch(bookDeleted(id)))
+	}
+}
+
+export function getUser(username) {
+	return dispatch => {
+		return axios.get(`/api/user/${username}`)
+			.then(({data}) => dispatch(userData(data.user)))
 	}
 }
 

@@ -30,8 +30,10 @@ app.use(bodyParser.json());
 
 import apiRoutes from './routes/api';
 import apiAuthRoutes from './routes/apiAuth';
+import apiUserRoutes from './routes/user';
 app.use('/api', apiRoutes);
 app.use('/api/auth', apiAuthRoutes);
+app.use('/api/user', apiUserRoutes);
 
 // error handling
 app.use(notFound);

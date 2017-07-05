@@ -24,6 +24,9 @@ const userSchema = new mongoose.Schema({
 	books: {
 		type: [mongoose.Schema.ObjectId],
 		ref: 'Book'
+	},
+	picture: {
+		type: String,
 	}
 });
 

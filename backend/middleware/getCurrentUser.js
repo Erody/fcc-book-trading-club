@@ -10,7 +10,6 @@ export default (req, res, next) => {
 		token = authHeader.split(' ')[1];
 	}
 
-	const unauthorizedError = {error: 'You are not authorized to perform this action.'};
 	if(token) {
 		jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
 			if(!err) {
@@ -20,22 +19,21 @@ export default (req, res, next) => {
 						{ passwordDigest: 0}
 					)
 					.then(user => {
-						console.log(user);
 						if(user) {
 							req.currentUser = user;
 							next();
 						} else {
-							res.status(401).json(unauthorizedError)
+							next();
 						}
 					})
 					.catch(err => {
-						res.status(400).json({error: 'Oops, something went wrong on our end.'})
+						res.status(400).json({error: {message: 'Oops, something went wrong on our end.', response: err}})
 					});
 			} else {
-				res.status(401).json(unauthorizedError)
+				next();
 			}
 		})
 	} else {
-		res.status(401).json(unauthorizedError)
+		next();
 	}
 }
