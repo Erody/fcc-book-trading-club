@@ -40,7 +40,8 @@ export function saveBook(req, res) {
 	const{ errors, isValid } = validate(req.body);
 	if(isValid) {
 		const { title, author, cover, description} = req.body;
-		const newBook = new Book({ title, author, cover, description});
+		const owner = req.currentUser._id;
+		const newBook = new Book({ title, author, cover, description, owner});
 		newBook.save()
 			.then(data => res.json({book: data}))
 			.catch(err => res.status(500).json({errors: {global: 'Oops, something went wrong on our end.'}}));

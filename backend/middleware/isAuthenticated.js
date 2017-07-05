@@ -20,7 +20,6 @@ export default (req, res, next) => {
 						{ passwordDigest: 0}
 					)
 					.then(user => {
-						console.log(user);
 						if(user) {
 							req.currentUser = user;
 							next();

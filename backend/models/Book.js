@@ -9,11 +9,11 @@ const bookSchema = new mongoose.Schema({
 		type: String,
 		required: 'You must supply an author'
 	},
-	// owner: {
-	// 	type: mongoose.Schema.ObjectId,
-	// 	ref: 'User',
-	// 	required: 'Book needs to be submitted by user.'
-	// },
+	owner: {
+		type: mongoose.Schema.ObjectId,
+		ref: 'User',
+		required: 'Book needs to be submitted by user.'
+	},
 	cover: String,
 	description: {
 		type: String,
