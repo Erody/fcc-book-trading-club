@@ -1,6 +1,6 @@
 import express from 'express';
 import { catchErrors } from '../handlers/errorHandlers';
-import { getUser } from '../controllers/userController';
+import { getUser} from '../controllers/userController';
 import isOwner from '../middleware/getCurrentUser';
 
 const router = express.Router();

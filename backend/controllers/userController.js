@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const Book = mongoose.model('Book');
 
 export async function getUser(req, res) {
 	if(req.currentUser) {
@@ -17,6 +18,7 @@ export async function getUser(req, res) {
 			{name: req.params.username.toLowerCase()},
 			{ passwordDigest: 0}
 		);
+		console.log(user);
 		!!user ? res.json({user}) : res.status(404).json({error: "Couldn't find user."})
 	}
 }

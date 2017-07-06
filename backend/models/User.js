@@ -21,14 +21,22 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: 'You must supply a password hash.'
 	},
-	books: {
-		type: [mongoose.Schema.ObjectId],
-		ref: 'Book'
-	},
+	books: [
+		{ type: mongoose.Schema.ObjectId, ref: 'Book'}
+	],
 	picture: {
 		type: String,
 	}
 });
+
+const autoPopulate = function (next) {
+	this.populate('books');
+	next();
+};
+
+userSchema
+	.pre('findOne', autoPopulate)
+	.pre('find', autoPopulate)
 
 
 export const User = mongoose.model('User', userSchema);
