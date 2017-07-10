@@ -85,7 +85,10 @@ export function deleteBook(id) {
 export function getUser(username) {
 	return dispatch => {
 		return axios.get(`/api/user/${username}`)
-			.then(({data}) => dispatch(userData(data.user)))
+			.then(({data}) => {
+				dispatch(setBooks(data.user.books));
+				dispatch(userData(data.user))
+			})
 	}
 }
 

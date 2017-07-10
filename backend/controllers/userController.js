@@ -18,7 +18,6 @@ export async function getUser(req, res) {
 			{name: req.params.username.toLowerCase()},
 			{ passwordDigest: 0}
 		);
-		console.log(user);
 		!!user ? res.json({user}) : res.status(404).json({error: "Couldn't find user."})
 	}
 }

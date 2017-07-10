@@ -61,7 +61,6 @@ export function saveBook(req, res) {
 				User
 					.findOneAndUpdate({_id: newBook.owner}, {$push: {books: newBook._id}})
 					.then(user => {
-						console.log(user);
 						res.json({book: data})
 					})
 			})

@@ -8,17 +8,17 @@ const BookList = ({books, deleteBook}) => {
 		</p>
 	);
 
-	const bookList = (
+	const bookList = books && books.length ? (
 		<div className="ui five cards">
 			{ books.map(book => <BookCard deleteBook={deleteBook} book={book} key={book._id}/>)}
 		</div>
-	);
+	) : emptyMessage;
 
 	return (
 		<div>
-			{books.length ? bookList : emptyMessage}
+			{bookList}
 		</div>
-	)
+	);
 };
 
 BookList.propTypes = {
