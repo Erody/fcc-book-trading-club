@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
 export function credentialValidation(data) {
-	const { username, email, password, passwordVerification } = data;
+	const { username, email, password, passwordVerification, city, state } = data;
 	const errors = {};
 
 	if(validator.isEmpty(username)) {
@@ -18,6 +18,12 @@ export function credentialValidation(data) {
 	}
 	if(validator.isEmpty(passwordVerification)) {
 		errors.passwordVerification = 'Please verify your password.'
+	}
+	if(validator.isEmpty(city)) {
+		errors.city = 'Please supply a city.'
+	}
+	if(validator.isEmpty(state)) {
+		errors.state = 'Please supply a state.'
 	}
 
 	if(!validator.isEmail(email)) {

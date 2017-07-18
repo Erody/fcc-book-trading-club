@@ -5,6 +5,7 @@ const User = mongoose.model('User');
 export default (req, res, next) => {
 	const authHeader = req.headers['authorization'];
 	let token;
+	const unauthorizedError = {error: 'You are not authorized to perform this action.'};
 
 	if(authHeader) {
 		token = authHeader.split(' ')[1];

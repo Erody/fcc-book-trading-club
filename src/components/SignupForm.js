@@ -8,6 +8,8 @@ class SignupForm extends React.Component {
 		email: '',
 		password: '',
 		passwordVerification: '',
+		city: '',
+		state: '',
 		errors: {}
 	};
 
@@ -30,14 +32,16 @@ class SignupForm extends React.Component {
 		if (this.state.email === '') errors.email = "Please supply an email.";
 		if (this.state.password === '') errors.password = "Please supply a password.";
 		if (this.state.passwordVerification === '') errors.passwordVerification = "Please verify your password.";
+		if (this.state.city === '') errors.city = "Please supply a city.";
+		if (this.state.state === '') errors.state = "Please supply a state.";
 
 		this.setState({ errors });
 
 		const isValid = Object.keys(errors).length === 0;
 		if(isValid) {
-			const { username, email, password, passwordVerification } = this.state;
+			const { username, email, password, passwordVerification, city, state } = this.state;
 			this.setState({ loading: true });
-			this.props.signup({ username, email, password, passwordVerification})
+			this.props.signup({ username, email, password, passwordVerification, city, state})
 				.then(() => {
 					this.props.addFlashMessage({
 						type: 'success',
@@ -97,6 +101,24 @@ class SignupForm extends React.Component {
 						id="passwordVerification"
 						error={this.state.errors.passwordVerification}
 						type="password"
+					/>
+
+					<TextFieldGroup
+						name="city"
+						label="City"
+						value={this.state.city}
+						onChange={this.handleChange}
+						id="city"
+						error={this.state.errors.city}
+					/>
+
+					<TextFieldGroup
+						name="state"
+						label="State"
+						value={this.state.state}
+						onChange={this.handleChange}
+						id="state"
+						error={this.state.errors.state}
 					/>
 
 					<div className="field">

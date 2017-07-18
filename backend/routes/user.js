@@ -1,11 +1,15 @@
 import express from 'express';
 import { catchErrors } from '../handlers/errorHandlers';
-import { getUser} from '../controllers/userController';
-import isOwner from '../middleware/getCurrentUser';
+import { getUser, updateUser} from '../controllers/userController';
+import getCurrentUser from '../middleware/getCurrentUser';
+import isAuthenticated from '../middleware/isAuthenticated';
 
 const router = express.Router();
 
 // GET
-router.get('/:username', isOwner, catchErrors(getUser));
+router.get('/:username', getCurrentUser, catchErrors(getUser));
+
+// POST
+router.post('/:username', isAuthenticated, catchErrors(updateUser));
 
 export default router;

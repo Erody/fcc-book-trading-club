@@ -10,10 +10,12 @@ export async function signup (req, res) {
 	const {errors, isValid} = await validateInput(req.body, credentialValidation);
 
 	if (isValid) {
-		const {username, email, password } = req.body;
+		const {username, email, password, city, state } = req.body;
 		const user = new User({
 			name: username.toLowerCase(),
 			email,
+			city,
+			state,
 			passwordDigest: bcrypt.hashSync(password, 10)
 		});
 		await user.save();

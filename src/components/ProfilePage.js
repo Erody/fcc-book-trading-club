@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
 import { getUser, deleteBook } from '../actions/actions';
 import { addFlashMessage } from '../actions/flashMessages';
 import BookList from './BookList';
@@ -21,9 +22,11 @@ class ProfilePage extends React.Component {
 		const { picture, name, email} = this.props.profileUser;
 		const whenOwner = (
 			<div className="extra">
-				<div className="ui right floated primary button">
-					Edit
-					<i className="right edit icon"></i>
+				<div className="ui right floated">
+					<Link to={`/user/${name}/edit`} className="ui positive basic button">
+						Edit
+						<i className="right edit icon"></i>
+					</Link>
 				</div>
 			</div>
 		);
@@ -58,7 +61,6 @@ function mapStateToProps(state) {
 			books: state.books
 		}
 	} else {
-		console.log(state);
 		return {
 			profileUser: state.user,
 			books: state.books
@@ -66,7 +68,7 @@ function mapStateToProps(state) {
 	}
 }
 
-React.propTypes = {
+ProfilePage.propTypes = {
 	profileUser: React.PropTypes.object.isRequired,
 	currentUser: React.PropTypes.object,
 };

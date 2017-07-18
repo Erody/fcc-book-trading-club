@@ -6,6 +6,7 @@ import SignupPage from './components/SignupPage';
 import LoginPage from './components/LoginPage';
 import BookTradePage from './components/BookTradePage';
 import ProfilePage from './components/ProfilePage';
+import ProfileEditPage from './components/ProfileEditPage';
 import FlashMessageList from './components/FlashMessageList';
 import Navbar from './components/Navbar';
 import requireAuth from './utils/requireAuth';
@@ -26,7 +27,8 @@ class App extends Component {
 				<Route path="/signup" component={SignupPage}/>
 				<Route path="/login" component={LoginPage}/>
 				<Route path="/trade" component={BookTradePage}/>
-				<Route path="/user/:username" component={ProfilePage}/>
+				<Route path="/user/:username" exact component={ProfilePage}/>
+				<Route path="/user/:username/edit" exact component={requireAuth(ProfileEditPage)}/>
 			</div>
 		);
 	}

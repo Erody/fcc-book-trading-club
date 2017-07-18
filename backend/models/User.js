@@ -17,6 +17,8 @@ const userSchema = new mongoose.Schema({
 		unique: 'That email address is already being used.',
 		trim: true
 	},
+	city: String,
+	state: String,
 	passwordDigest: {
 		type: String,
 		required: 'You must supply a password hash.'

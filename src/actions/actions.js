@@ -92,3 +92,12 @@ export function getUser(username) {
 	}
 }
 
+export function updateUser(data) {
+	return dispatch => {
+		return axios.post(`/api/user/${data.username}`, data)
+			.then(({data}) => {
+				dispatch(userData(data.user))
+			})
+	}
+}
+
