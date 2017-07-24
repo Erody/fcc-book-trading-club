@@ -23,14 +23,14 @@ const BookList = ({books, deleteBook, noOptions}) => {
 
 	return (
 		<div>
-			{noOptions? simple : bookList}
+			{noOptions ? simple : bookList}
 		</div>
 	);
 };
 
 BookList.propTypes = {
 	books: React.PropTypes.array.isRequired,
-	deleteBook: React.PropTypes.func.isRequired
+	deleteBook: React.PropTypes.func
 };
 
 export default BookList;

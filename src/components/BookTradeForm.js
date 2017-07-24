@@ -12,12 +12,12 @@ class BookTradeForm extends React.Component {
 		errors: {},
 		loading: false,
 		selected: [],
-		accepted: false,
+
 	};
 
 	componentWillReceiveProps = (newProps) => {
 		if(newProps.trade.selectedBooks !== this.props.trade.selectedBooks) {
-			this.props.socket.emit('tradeUpdate', {books: newProps.trade.selectedBooks})
+			this.props.socket.emit('tradeUpdate', {books: newProps.trade.selectedBooks, id: 'notarealid12390'})
 		}
 	};
 
@@ -77,14 +77,6 @@ class BookTradeForm extends React.Component {
 						<div className="middle aligned content">
 							{dropDown}
 							<BookList books={this.props.trade.selectedBooks} noOptions/>
-						</div>
-						<div className="extra">
-							<div className="ui right floated">
-								<button className={classnames('ui', 'labeled', 'icon', 'button', {positive: this.state.accepted})}>
-									{this.state.accepted ? 'Accepted' : 'Accept'}
-									<i className="checkmark icon"></i>
-								</button>
-							</div>
 						</div>
 					</div>
 				</div>
