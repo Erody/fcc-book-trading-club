@@ -24,7 +24,10 @@ import User from './models/User';
 
 const app = express();
 const server = http.Server(app);
-const io = SocketIO(server);
+// create socketio server instance
+export const io = SocketIO(server);
+// initialize socketio handling file
+require('./socketio'); // Using require, because there is nothing to import in socketio.js
 
 app.use(bodyParser.json());
 
@@ -38,16 +41,11 @@ app.use('/api/user', apiUserRoutes);
 // error handling
 app.use(notFound);
 
-// app.listen(PORT, () => console.log(`Server is listening on ${PORT}`));
+
 
 server.listen(PORT, () => {
 	console.log(`Server is listening on ${PORT}`);
 });
 
-io.on('connection', (socket) => {
-	console.log('A user connected');
-	socket.on('disconnect', () => {
-		console.log('A user disconnected');
-	})
-});
+
 

@@ -1,5 +1,5 @@
 import express from 'express';
-import { getBooks, saveBook, getBook, updateBook, deleteBook } from '../controllers/bookController';
+import { getBooks, saveBook, getBook, updateBook, deleteBook, getSomeBooks } from '../controllers/bookController';
 import { catchErrors } from '../handlers/errorHandlers';
 import isAuthenticated from '../middleware/isAuthenticated';
 
@@ -11,6 +11,7 @@ router.get('/book/:id', catchErrors(getBook));
 
 // POST
 router.post('/books/add', isAuthenticated, saveBook);
+router.post('/books/some', isAuthenticated, catchErrors(getSomeBooks));
 
 // PUT
 router.put('/book/:id', isAuthenticated, catchErrors(updateBook));

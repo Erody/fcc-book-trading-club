@@ -9,7 +9,8 @@ class ProfileEditForm extends React.Component {
 		picture: this.props.profileUser.picture ,
 		city: this.props.profileUser.city ,
 		state: this.props.profileUser.state ,
-		errors: {}
+		errors: {},
+		loading: false
 	};
 
 	componentWillReceiveProps = (nextProps) => {

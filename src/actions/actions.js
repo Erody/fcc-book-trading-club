@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {SET_BOOKS, USER_DATA, BOOK_DELETED, BOOK_UPDATED, BOOK_FETCHED, ADD_BOOK} from './typeExports';
+import {SET_BOOKS, USER_DATA, BOOK_DELETED, BOOK_UPDATED, BOOK_FETCHED, ADD_BOOK, SET_SELECTED_BOOKS} from './typeExports';
 
 
 export function setBooks(books) {
@@ -9,6 +9,8 @@ export function setBooks(books) {
 		books
 	}
 }
+
+
 
 export function addBook(book) {
 	return {
@@ -53,6 +55,8 @@ export function fetchBooks() {
 			.then(({data}) => dispatch(setBooks(data.books)))
 	}
 }
+
+
 
 export function fetchBook(id) {
 	return dispatch => {

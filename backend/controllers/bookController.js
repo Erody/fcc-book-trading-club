@@ -34,6 +34,11 @@ export async function updateBook(req, res) {
 	}
 }
 
+export async function getSomeBooks(req, res) {
+	const books = await Book.find({_id: req.body});
+	res.json({books})
+}
+
 export function deleteBook(req, res) {
 	Book.findOneAndRemove({_id: req.params.id})
 		.then((book) => {

@@ -1,12 +1,19 @@
 import React from 'react';
 import BookCard from './BookCard';
+import BookCardPlain from './BookCardPlain';
 
-const BookList = ({books, deleteBook}) => {
+const BookList = ({books, deleteBook, noOptions}) => {
 	const emptyMessage = (
 		<p>
 			There are no books.
 		</p>
 	);
+
+	const simple = books && books.length ? (
+		<div className="ui five cards">
+			{ books.map(book => <BookCardPlain book={book} key={book._id}/>)}
+		</div>
+	) : emptyMessage;
 
 	const bookList = books && books.length ? (
 		<div className="ui five cards">
@@ -16,7 +23,7 @@ const BookList = ({books, deleteBook}) => {
 
 	return (
 		<div>
-			{bookList}
+			{noOptions? simple : bookList}
 		</div>
 	);
 };

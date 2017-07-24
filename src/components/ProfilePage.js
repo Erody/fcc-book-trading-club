@@ -23,7 +23,7 @@ class ProfilePage extends React.Component {
 		const whenOwner = (
 			<div className="extra">
 				<div className="ui right floated">
-					<Link to={`/user/${name}/edit`} className="ui positive basic button">
+					<Link to={`/user/${name}/edit`} className="ui positive labeled icon button">
 						Edit
 						<i className="right edit icon"></i>
 					</Link>
