@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Message, Button } from 'semantic-ui-react';
+import AlertMessage from './AlertMessage';
+import { addFlashMessage } from '../actions/flashMessages';
 
 
 class Socketio extends React.Component {
@@ -10,7 +11,14 @@ class Socketio extends React.Component {
 		tradePartner: '',
 	};
 
+	cancelOnClick = (e) => {
+		this.setState({tradeRequest: false});
+		this.props.socket.emit('cancel trade request', {tradePartner: this.state.tradePartner});
+	};
 
+	acceptOnClick = (e) => {
+		// todo emit update to notify trade partner of accepted trade request
+	};
 
 	componentDidMount = () => {
 		if(this.props.auth.isAuthenticated) {
@@ -18,23 +26,24 @@ class Socketio extends React.Component {
 		}
 		this.props.socket.on('trade request', ({from}) => {
 			this.setState({tradeRequest: true, tradePartner: from})
+		});
+		this.props.socket.on('cancelled trade request', () => {
+			this.props.addFlashMessage({
+				type: 'alert',
+				text: 'The trade request has been cancelled.'
+			})
 		})
 	};
 
 	render() {
 
 		const tradeRequest = (
-			<div>
-				<Message
-					attached
-					header={`${this.state.tradePartner} wants to trade with you`}
-				/>
-				<Button.Group fluid>
-					<Button>Cancel</Button>
-					<Button.Or />
-					<Button positive>Accept</Button>
-				</Button.Group>
-			</div>
+			<AlertMessage
+				header="Trade Request"
+				content={`${this.state.tradePartner.username} wants to trade with you`}
+				cancelOnClick={this.cancelOnClick}
+				acceptOnClick={this.acceptOnClick}
+			/>
 		);
 
 		return (
@@ -51,4 +60,4 @@ function mapStateToProps(state) {
 	}
 }
 
-export default connect(mapStateToProps)(Socketio);
+export default connect(mapStateToProps, { addFlashMessage })(Socketio);

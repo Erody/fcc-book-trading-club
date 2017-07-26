@@ -49,3 +49,17 @@ class App extends Component {
 export default App;
 
 //todo Further secure some pages (only owner of book/profile is allowed to edit)
+
+// After trade request is sent:
+	// Redirect to home page
+	// Show flash message 'Waiting for ${tradeRecipient} to accept the trade' with a loading symbol
+	// When trade is declined
+		// Update the flash message to say that the trade has been declined
+	// When trade is accepted
+		// Update the flash message to say that trade has been accepted. Offer link to enter the trade room
+
+	// User that has to accept/decline the trade request
+		// If user accepts
+			// Redirect user to the trade room
+		// If user declines
+			// Show flash message 'You declined the trade'
