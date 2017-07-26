@@ -15,6 +15,13 @@ class BookTradeInitPage extends React.Component {
 	handleSubmit = (e) => {
 		e.preventDefault();
 		this.props.tradeInit(this.state.username)
+			.then(() => {
+				this.props.socket.emit('trade request', {
+					uniqueId: this.props.tradeId,
+					tradePartner: this.props.tradePartner,
+					from: this.props.authenticatedUser
+				})
+			})
 	};
 
 	handleChange = (e) => {
@@ -58,6 +65,8 @@ class BookTradeInitPage extends React.Component {
 function mapStateToProps(state) {
 	return {
 		tradeId: state.trade.id,
+		tradePartner: state.user,
+		authenticatedUser: state.auth.user.username
 	}
 }
 

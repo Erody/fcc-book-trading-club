@@ -18,34 +18,29 @@ class BookTradePage extends React.Component {
 
 	};
 
-	socket = io();
 
 	componentDidMount = () => {
-		this.socket.on('tradeUpdate', ({books}) => {
-			console.log('trade update');
-			console.log(books);
+		this.props.socket.on('tradeUpdate', ({books}) => {
 			this.setState({tradePartnerBooks: books});
 		});
-		this.socket.on('trade status', ({accepted}) => {
-			console.log('trade status');
-			console.log(accepted);
+		this.props.socket.on('trade status', ({accepted}) => {
 			this.setState({tradePartnerAccepted: accepted})
 		})
 	};
 
 	componentWillMount = () => {
 		this.props.getUser(this.props.user.username);
-		this.socket.emit('trade', {trade: 'notarealid12390'});
+		this.props.socket.emit('trade', {trade: 'notarealid12390'});
 		// this.socket.emit('trade', {trade: this.props.trade.id})
 	};
 
 	componentWillUnmount = () => {
-		this.socket.emit('leave trade', {trade: 'notarealid12390'});
-		this.socket.disconnect();
+		this.props.socket.emit('leave trade', {trade: 'notarealid12390'});
+		this.props.socket.disconnect();
 	};
 
 	handleAccept = e => {
-		this.socket.emit('trade status', { id: 'notarealid12390',accepted: !this.state.accepted});
+		this.props.socket.emit('trade status', { id: 'notarealid12390',accepted: !this.state.accepted});
 		this.setState({accepted: !this.state.accepted})
 	};
 
@@ -60,7 +55,7 @@ class BookTradePage extends React.Component {
 		return (
 			<div>
 				<BookTradeForm
-					socket={this.socket}
+					socket={this.props.socket}
 					addBook={this.props.addBook}
 					books={this.props.books}
 					trade={this.props.trade}
@@ -106,15 +101,4 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {addBook, getUser, fetchSomeBooks})(BookTradePage);
 
-// todo Set up trade form (trade partner, books)
-// todo Realtime trading:
-	// When adding a book:
-	// On keyup: Check if user owns book
-		// if he does
-			// show selection of all matching books to choose from
-			// When one of those books is selected: Add that book to the trade proposal
-		// keep updating state for both traders through socket io
-
-// todo non-realtime trading:
-	// User creates trade proposal. Adds books on both sides of the trade and sends the proposal.
-	// Recipient can then either accept or decline trade whenever he sees the message.
+// todo initialize socket.io in App.js and pass the socket as a prop to all components that need it.

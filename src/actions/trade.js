@@ -1,5 +1,6 @@
 import { SET_SELECTED_BOOKS, SET_TRADE_ID } from './typeExports';
 import axios from 'axios';
+import { userData } from './actions'
 
 
 export function setSelectedBooks(selectedBooks) {
@@ -27,7 +28,10 @@ export function fetchSomeBooks(ids) {
 export function tradeInit(username) {
 	return dispatch => {
 		return axios.get(`/api/trade/request/${username}`)
-			.then(({data}) => dispatch(setTradeId(data.uniqueId)))
+			.then(({data}) => {
+				dispatch(setTradeId(data.uniqueId));
+				dispatch(userData(data.tradePartner))
+			})
 	}
 }
 

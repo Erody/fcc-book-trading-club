@@ -10,10 +10,16 @@ import ProfileEditPage from './components/ProfileEditPage';
 import FlashMessageList from './components/FlashMessageList';
 import BookTradeInitPage from './components/BookTradeInitPage';
 import Navbar from './components/Navbar';
+import Socketio from './components/Socketio';
+import io from 'socket.io-client';
 import requireAuth from './utils/requireAuth';
+
 import './App.css';
 
 class App extends Component {
+
+	socket = io();
+
 	render() {
 		return (
 			<div className="ui container">
@@ -22,19 +28,23 @@ class App extends Component {
 
 				<FlashMessageList/>
 
+				<Socketio socket={this.socket}/>
+
 				<Route path="/books" exact component={BooksPage}/>
 				<Route path="/books/add" exact component={requireAuth(BookFormPage)}/>
 				<Route path="/book/:_id" component={requireAuth(BookFormPage)}/>
 				<Route path="/signup" component={SignupPage}/>
 				<Route path="/login" component={LoginPage}/>
-				<Route path="/trade" exact component={BookTradeInitPage}/>
-				<Route path="/trade/:roomid" exact component={BookTradePage}/>
+				<Route path="/trade" exact component={() => <BookTradeInitPage socket={this.socket}/>}/>
+				<Route path="/trade/:roomid" exact component={()=> <BookTradePage socket={this.socket}/>}/>
 				<Route path="/user/:username" exact component={ProfilePage}/>
 				<Route path="/user/:username/edit" exact component={requireAuth(ProfileEditPage)}/>
 			</div>
 		);
 	}
 }
+
+
 
 export default App;
 
