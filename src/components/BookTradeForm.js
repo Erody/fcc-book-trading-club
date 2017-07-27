@@ -17,7 +17,7 @@ class BookTradeForm extends React.Component {
 
 	componentWillReceiveProps = (newProps) => {
 		if(newProps.trade.selectedBooks !== this.props.trade.selectedBooks) {
-			this.props.socket.emit('tradeUpdate', {books: newProps.trade.selectedBooks, id: 'notarealid12390'})
+			this.props.socket.emit('tradeUpdate', {books: newProps.trade.selectedBooks, id: this.props.trade.uniqueId})
 		}
 	};
 

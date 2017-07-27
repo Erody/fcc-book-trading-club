@@ -1,4 +1,4 @@
-import { SET_SELECTED_BOOKS, SET_TRADE_ID } from './typeExports';
+import { SET_SELECTED_BOOKS, SET_TRADE_ID, SET_TRADE_INFO } from './typeExports';
 import axios from 'axios';
 import { userData } from './actions'
 
@@ -14,6 +14,13 @@ export function setTradeId(id) {
 	return {
 		type: SET_TRADE_ID,
 		id
+	}
+}
+
+export function setTradeInformation(data) {
+	return {
+		type: SET_TRADE_INFO,
+		data
 	}
 }
 

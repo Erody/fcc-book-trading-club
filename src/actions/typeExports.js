@@ -10,3 +10,4 @@ export const DELETE_FLASH_MESSAGE = 'DELETE_FLASH_MESSAGE';
 export const USER_DATA = 'USER_DATA';
 export const SET_SELECTED_BOOKS = 'SET_SELECTED_BOOKS';
 export const SET_TRADE_ID = 'SET_TRADE_ID';
+export const SET_TRADE_INFO = 'SET_TRADE_INFO';

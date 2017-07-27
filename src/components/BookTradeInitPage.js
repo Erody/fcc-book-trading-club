@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import TextFieldGroup from './TextFieldGroup';
 import { connect } from 'react-redux';
-import { tradeInit } from '../actions/trade';
+import { tradeInit, setTradeInformation } from '../actions/trade';
 import { addFlashMessage } from '../actions/flashMessages';
 
 class BookTradeInitPage extends React.Component {
@@ -22,11 +22,16 @@ class BookTradeInitPage extends React.Component {
 					tradePartner: this.props.tradePartner,
 					from: this.props.authenticatedUser
 				});
+				this.props.setTradeInformation({
+					uniqueId: this.props.tradeId,
+					tradePartner: this.props.tradePartner
+				});
 				this.props.addFlashMessage({
 					type: 'success',
 					text: 'The trade request has been sent. Waiting for trade partner to accept.'
 				});
-			})
+			});
+
 	};
 
 	handleChange = (e) => {
@@ -75,4 +80,4 @@ function mapStateToProps(state) {
 	}
 }
 
-export default connect(mapStateToProps, {tradeInit, addFlashMessage})(BookTradeInitPage);
+export default connect(mapStateToProps, {tradeInit, addFlashMessage, setTradeInformation})(BookTradeInitPage);

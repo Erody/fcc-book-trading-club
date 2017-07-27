@@ -11,11 +11,11 @@ import classnames from 'classnames';
 class BookTradePage extends React.Component {
 
 	state = {
-		tradePartner: 'Herbert',
+		tradePartner: '',
 		tradePartnerBooks: [],
 		tradePartnerAccepted: false,
 		accepted: false,
-
+		tradeId: '',
 	};
 
 
@@ -25,22 +25,25 @@ class BookTradePage extends React.Component {
 		});
 		this.props.socket.on('trade status', ({accepted}) => {
 			this.setState({tradePartnerAccepted: accepted})
+		});
+		this.props.socket.on('trade data', ({tradePartner, tradeId}) => {
+			this.setState({tradePartner, tradeId})
 		})
 	};
 
 	componentWillMount = () => {
 		this.props.getUser(this.props.user.username);
-		this.props.socket.emit('trade', {trade: 'notarealid12390'});
-		// this.socket.emit('trade', {trade: this.props.trade.id})
+		console.log(`trade ${this.props.user.username}`, this.props.trade.uniqueId);
+		this.props.socket.emit('trade', {trade: this.props.trade.uniqueId});
 	};
 
 	componentWillUnmount = () => {
-		this.props.socket.emit('leave trade', {trade: 'notarealid12390'});
+		this.props.socket.emit('leave trade', {trade: this.props.trade.uniqueId});
 		this.props.socket.disconnect();
 	};
 
 	handleAccept = e => {
-		this.props.socket.emit('trade status', { id: 'notarealid12390',accepted: !this.state.accepted});
+		this.props.socket.emit('trade status', { id: this.props.trade.uniqueId,accepted: !this.state.accepted});
 		this.setState({accepted: !this.state.accepted})
 	};
 
@@ -52,6 +55,8 @@ class BookTradePage extends React.Component {
 			</div>
 		);
 
+		const tradePartner = this.props.trade.tradePartner ? (this.props.trade.tradePartner.name || this.props.trade.tradePartner.username) : '';
+
 		return (
 			<div>
 				<BookTradeForm
@@ -59,14 +64,14 @@ class BookTradePage extends React.Component {
 					addBook={this.props.addBook}
 					books={this.props.books}
 					trade={this.props.trade}
-					tradePartner={this.state.tradePartner}
+					tradePartner={tradePartner}
 					fetchSomeBooks={this.props.fetchSomeBooks}
 				/>
 				<div className="ui items">
 					<div className="item">
 						<div className="content">
 							<div className="header">
-								<h2>{this.state.tradePartner}'s offer:</h2>
+								<h2>{tradePartner}'s offer:</h2>
 								{this.state.tradePartnerAccepted && hasAccepted }
 							</div>
 							<div className="middle aligned content">
@@ -100,5 +105,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {addBook, getUser, fetchSomeBooks})(BookTradePage);
-
-// todo initialize socket.io in App.js and pass the socket as a prop to all components that need it.

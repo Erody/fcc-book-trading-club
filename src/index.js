@@ -13,10 +13,13 @@ import jwtDecode from 'jwt-decode';
 import {setCurrentUser} from './actions/auth';
 import './index.css';
 
+
 const store = createStore(
 	rootReducer,
 	composeWithDevTools(applyMiddleware(thunk))
 );
+
+
 
 
 if(localStorage.jwt) {
