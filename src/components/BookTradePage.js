@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {Component} from 'react';
 import BookTradeForm from './BookTradeForm';
 import io from 'socket.io-client';
 import {connect} from 'react-redux';
 import { addBook} from '../actions/trade';
 import { getUser} from '../actions/actions';
-import { fetchSomeBooks} from '../actions/trade';
+import { addFlashMessage} from '../actions/flashMessages';
+import { fetchSomeBooks, resolveTrade} from '../actions/trade';
 import BookList from './BookList';
 import classnames from 'classnames';
 
@@ -18,6 +19,26 @@ class BookTradePage extends React.Component {
 		tradeId: '',
 	};
 
+	tradeComplete = () => {
+		this.props.addFlashMessage({
+			type: 'success',
+			text: 'The trade ended successfully.'
+		});
+		this.context.router.history.push('/');
+	};
+
+	componentWillUpdate = (nextProps, nextState) => {
+		if(nextState.accepted && nextState.tradePartnerAccepted) {
+			if(nextProps.trade.tradePartner.id) {
+				// resolve trade
+				const { tradePartnerBooks} = nextState;
+				const {user, trade} = nextProps;
+				this.props.resolveTrade({ tradePartnerBooks, user, trade});
+				this.props.socket.emit('trade complete', {id: nextProps.trade.uniqueId});
+				this.tradeComplete();
+			}
+		}
+	};
 
 	componentDidMount = () => {
 		this.props.socket.on('tradeUpdate', ({books}) => {
@@ -28,6 +49,9 @@ class BookTradePage extends React.Component {
 		});
 		this.props.socket.on('trade data', ({tradePartner, tradeId}) => {
 			this.setState({tradePartner, tradeId})
+		});
+		this.props.socket.on('trade complete', () => {
+			this.tradeComplete();
 		})
 	};
 
@@ -39,7 +63,6 @@ class BookTradePage extends React.Component {
 
 	componentWillUnmount = () => {
 		this.props.socket.emit('leave trade', {trade: this.props.trade.uniqueId});
-		this.props.socket.disconnect();
 	};
 
 	handleAccept = e => {
@@ -96,6 +119,10 @@ class BookTradePage extends React.Component {
 	}
 }
 
+BookTradePage.contextTypes = {
+	router: React.PropTypes.object.isRequired
+};
+
 function mapStateToProps(state) {
 	return {
 		user: state.auth.user,
@@ -104,4 +131,4 @@ function mapStateToProps(state) {
 	}
 }
 
-export default connect(mapStateToProps, {addBook, getUser, fetchSomeBooks})(BookTradePage);
+export default connect(mapStateToProps, {addBook, getUser, fetchSomeBooks, resolveTrade, addFlashMessage})(BookTradePage);

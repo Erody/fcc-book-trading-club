@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { Route} from 'react-router-dom';
 import BooksPage from './components/BooksPage';
 import BookFormPage from './components/BookFormPage';
@@ -16,7 +16,7 @@ import requireAuth from './utils/requireAuth';
 
 import './App.css';
 
-class App extends Component {
+class App extends React.Component {
 
 	socket = io();
 
@@ -50,16 +50,5 @@ export default App;
 
 //todo Further secure some pages (only owner of book/profile is allowed to edit)
 
-// After trade request is sent:
-	// Redirect to home page
-	// Show flash message 'Waiting for ${tradeRecipient} to accept the trade' with a loading symbol
-	// When trade is declined
-		// Update the flash message to say that the trade has been declined
-	// When trade is accepted
-		// Update the flash message to say that trade has been accepted. Offer link to enter the trade room
-
-	// User that has to accept/decline the trade request
-		// If user accepts
-			// Redirect user to the trade room
-		// If user declines
-			// Show flash message 'You declined the trade'
+//todo secure trade
+//todo When both trade partners accepted the trade resolve it. Assign the traded books to other user

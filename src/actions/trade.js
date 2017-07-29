@@ -42,5 +42,11 @@ export function tradeInit(username) {
 	}
 }
 
+export function resolveTrade(data) {
+	return dispatch => {
+		return axios.post(`/api/trade/resolve`, data)
+	}
+}
+
 export function addBook(name) {}
 

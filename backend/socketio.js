@@ -7,14 +7,12 @@ io.on('connection', (socket) => {
 		socket.join(data.id);
 	});
 	socket.on('trade', id => {
-		console.log('trade:', id);
 		socket.join(id.trade)
 	});
 	socket.on('leave trade', id => {
 		socket.leave(id.trade)
 	});
 	socket.on('tradeUpdate', (data) => {
-		console.log('update:', data.id)
 		socket.to(data.id).emit('tradeUpdate', {books: data.books})
 	});
 	socket.on('trade status', (data) => {
@@ -29,4 +27,10 @@ io.on('connection', (socket) => {
 	socket.on('accept trade request', (data) => {
 		socket.to(data.tradePartner.id).emit('accepted trade request', {tradeId: data.tradeId})
 	});
+	socket.on('trade complete', (data) => {
+		socket.to(data.id).emit('trade complete');
+	});
+	socket.on('error', err => {
+		console.error(err);
+	})
 });
