@@ -51,8 +51,6 @@ export default App;
 
 //todo Add a landing page^^
 
-//todo Further secure some pages (only owner of book/profile is allowed to edit)
-
 //todo secure trade
 //todo current bug: if only one user offers books in a trade and it is accepted those books are just removed from the previous owner, but not added to the new one.
 //todo add form validation everywhere it isn't already

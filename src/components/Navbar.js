@@ -26,6 +26,8 @@ class Navbar extends React.Component {
 				<NavLink className="item" activeClassName="active" to="/" exact>Home</NavLink>
 				<NavLink className="item" activeClassName="active" to="/books" exact>Books</NavLink>
 				<NavLink className="item" activeClassName="active" to="/books/add" exact>Add Book</NavLink>
+				<NavLink className="item" activeClassName="active" to="/trade" exact>New Trade</NavLink>
+				<NavLink className="item" activeClassName="active" to={`/user/${this.props.auth.user.username}`} exact>Profile</NavLink>
 				<div className="menu right">
 					<a className="item"  href="#" onClick={this.logout}>Log Out</a>
 				</div>

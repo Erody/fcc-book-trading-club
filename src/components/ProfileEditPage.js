@@ -8,6 +8,16 @@ class ProfileEditPage extends React.Component {
 	componentWillMount = () => {
 		// Get user data by username
 		this.props.getUser(this.props.match.params.username)
+			.then(() => {
+				// Ensure user is owner of profile
+				if(this.props.user._id !== this.props.auth.user.id) {
+					this.props.addFlashMessage({
+						type: 'error',
+						text: 'You are not authorized to perform this action.'
+					});
+					this.context.router.history.push('/')
+				}
+			})
 			.catch(err => {
 				this.props.addFlashMessage({
 					type: 'error',
@@ -24,6 +34,10 @@ class ProfileEditPage extends React.Component {
 		)
 	}
 }
+
+ProfileEditPage.contextTypes = {
+	router: React.PropTypes.object.isRequired
+};
 
 function mapStateToProps(state) {
 	return {

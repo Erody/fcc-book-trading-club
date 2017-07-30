@@ -43,7 +43,7 @@ class ProfilePage extends React.Component {
 						<div className="description">
 							<p>{email}</p>
 						</div>
-						{this.props.currentUser && whenOwner}
+						{this.props.currentUser.user.id === this.props.profileUser._id && whenOwner}
 					</div>
 				</div>
 				<h2>{name}'s books:</h2>

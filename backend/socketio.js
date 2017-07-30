@@ -30,7 +30,4 @@ io.on('connection', (socket) => {
 	socket.on('trade complete', (data) => {
 		socket.to(data.id).emit('trade complete');
 	});
-	socket.on('error', err => {
-		console.error(err);
-	})
 });

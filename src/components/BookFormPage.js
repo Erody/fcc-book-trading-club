@@ -16,7 +16,6 @@ class BookFormPage extends React.Component {
 			this.props.fetchBook(this.props.match.params._id)
 				.then(() => {
 					// Ensure the logged in user is owner of the book
-					console.log(this.props);
 					if(this.props.auth.user.id !== this.props.book.owner) {
 						this.props.addFlashMessage({
 							type: 'error',
