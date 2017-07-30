@@ -11,9 +11,9 @@ import FlashMessageList from './components/FlashMessageList';
 import BookTradeInitPage from './components/BookTradeInitPage';
 import Navbar from './components/Navbar';
 import Socketio from './components/Socketio';
+import LandingPage from './components/LandingPage';
 import io from 'socket.io-client';
 import requireAuth from './utils/requireAuth';
-import ensureOwnership from './utils/ensureOwnership';
 
 import './App.css';
 
@@ -31,6 +31,7 @@ class App extends React.Component {
 
 				<Socketio socket={this.socket}/>
 
+				<Route path="/" exact component={LandingPage}/>
 				<Route path="/books" exact component={BooksPage}/>
 				<Route path="/books/add" exact component={requireAuth(BookFormPage)}/>
 				<Route path="/book/:_id" component={requireAuth(BookFormPage)}/>
@@ -48,8 +49,6 @@ class App extends React.Component {
 
 
 export default App;
-
-//todo Add a landing page^^
 
 //todo secure trade
 //todo current bug: if only one user offers books in a trade and it is accepted those books are just removed from the previous owner, but not added to the new one.
