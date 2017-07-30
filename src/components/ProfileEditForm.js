@@ -35,7 +35,8 @@ class ProfileEditForm extends React.Component {
 			picture,
 			city,
 			state,
-			username: this.props.profileUser.name
+			username: this.props.profileUser.name,
+			auth: this.props.auth
 		};
 		this.props.updateUser(data)
 	};

@@ -19,7 +19,7 @@ class ProfileEditPage extends React.Component {
 	render() {
 		return (
 			<div>
-				<ProfileEditForm updateUser={this.props.updateUser} profileUser={this.props.user}/>
+				<ProfileEditForm updateUser={this.props.updateUser} profileUser={this.props.user} auth={this.props.auth}/>
 			</div>
 		)
 	}
@@ -27,7 +27,8 @@ class ProfileEditPage extends React.Component {
 
 function mapStateToProps(state) {
 	return {
-		user: state.user
+		user: state.user,
+		auth: state.auth
 	}
 }
 

@@ -7,7 +7,7 @@ export default function(ComposedComponent) {
 	class Authenticate extends React.Component {
 
 		componentWillMount = () => {
-			if(!this.props.isAuthenticated) {
+			if(!this.props.auth.isAuthenticated) {
 				this.props.addFlashMessage({
 					type: 'error',
 					text: 'Please login before visiting this page.'
@@ -17,7 +17,7 @@ export default function(ComposedComponent) {
 		};
 
 		componentWillUpdate = (nextProps) => {
-			if(!nextProps.isAuthenticated) {
+			if(!nextProps.auth.isAuthenticated) {
 				this.context.router.history.push('/')
 			}
 		};
@@ -30,7 +30,7 @@ export default function(ComposedComponent) {
 	}
 
 	Authenticate.propTypes = {
-		isAuthenticated: React.PropTypes.bool.isRequired,
+		auth: React.PropTypes.object.isRequired,
 		addFlashMessage: React.PropTypes.func.isRequired
 	};
 
@@ -40,7 +40,7 @@ export default function(ComposedComponent) {
 
 	function mapStateToProps(state) {
 		return {
-			isAuthenticated: state.auth.isAuthenticated,
+			auth: state.auth,
 		}
 	}
 

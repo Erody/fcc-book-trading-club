@@ -14,8 +14,20 @@ class BookFormPage extends React.Component {
 	componentDidMount = () => {
 		if(this.props.match.params._id) {
 			this.props.fetchBook(this.props.match.params._id)
+				.then(() => {
+					// Ensure the logged in user is owner of the book
+					console.log(this.props);
+					if(this.props.auth.user.id !== this.props.book.owner) {
+						this.props.addFlashMessage({
+							type: 'error',
+							text: 'You are not authorized to perform this action.'
+						});
+						this.context.router.history.push('/')
+					}
+				})
 		}
 	};
+
 
 	saveBook = ({_id, title, author, description, cover}) => {
 		if(_id) {
@@ -48,11 +60,14 @@ BookFormPage.propTypes = {
 	addFlashMessage: React.PropTypes.func.isRequired
 };
 
+BookFormPage.contextTypes = {
+	router: React.PropTypes.object.isRequired
+};
 
 function mapStateToProps(state, props) {
 	if(props.match.params._id) {
 		return {
-			book: state.books.find(item => item._id === props.match.params._id)
+			book: state.books.find(item => item._id === props.match.params._id),
 		}
 	} else {
 		return {

@@ -12,6 +12,7 @@ class BookForm extends React.Component {
 		cover: this.props.book ? this.props.book.cover : '',
 		errors: {},
 		loading: false,
+		editExisting: false,
 	};
 
 	componentWillReceiveProps = (nextProps) => {
@@ -21,7 +22,8 @@ class BookForm extends React.Component {
 				title,
 				author,
 				description,
-				cover
+				cover,
+				editExisting: true,
 			})
 		}
 	};
@@ -76,7 +78,7 @@ class BookForm extends React.Component {
 	render() {
 		const form = (
 			<form className={classnames('ui','form', {loading: this.state.loading})} onSubmit={this.handleSubmit}>
-				<h1>Add new Book</h1>
+				<h1>{this.state.editExisting ? 'Edit book' : 'Add new book'}</h1>
 
 				{!!this.state.errors.global && <div className="ui negative message"><p>{this.state.errors.global}</p></div>	}
 

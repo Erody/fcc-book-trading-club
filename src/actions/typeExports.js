@@ -11,3 +11,4 @@ export const USER_DATA = 'USER_DATA';
 export const SET_SELECTED_BOOKS = 'SET_SELECTED_BOOKS';
 export const SET_TRADE_ID = 'SET_TRADE_ID';
 export const SET_TRADE_INFO = 'SET_TRADE_INFO';
+export const SET_OWNER = 'SET_OWNER';

@@ -13,6 +13,7 @@ import Navbar from './components/Navbar';
 import Socketio from './components/Socketio';
 import io from 'socket.io-client';
 import requireAuth from './utils/requireAuth';
+import ensureOwnership from './utils/ensureOwnership';
 
 import './App.css';
 
@@ -48,7 +49,11 @@ class App extends React.Component {
 
 export default App;
 
+//todo Add a landing page^^
+
 //todo Further secure some pages (only owner of book/profile is allowed to edit)
 
 //todo secure trade
-//todo When both trade partners accepted the trade resolve it. Assign the traded books to other user
+//todo current bug: if only one user offers books in a trade and it is accepted those books are just removed from the previous owner, but not added to the new one.
+//todo add form validation everywhere it isn't already
+//todo Currently flash messages clutter the screen during trades (up to 4 messages will be shown per trade), find a solution.

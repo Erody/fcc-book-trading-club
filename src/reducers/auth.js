@@ -1,4 +1,4 @@
-import { SIGNUP_SUCCESS, SET_CURRENT_USER } from '../actions/typeExports';
+import { SIGNUP_SUCCESS, SET_CURRENT_USER} from '../actions/typeExports';
 import isEmpty from 'lodash/isEmpty'
 
 const initialState = {
