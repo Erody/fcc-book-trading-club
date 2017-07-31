@@ -12,6 +12,7 @@
 
 # misc
 .idea
+/backend/variables.env
 .DS_Store
 .env.local
 .env.development.local
